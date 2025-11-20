@@ -93,3 +93,4 @@ npm run build
 
 Fajllat e build-uara do të jenë në dosjen `dist/`.
 
+# A web application for task management in companies.
