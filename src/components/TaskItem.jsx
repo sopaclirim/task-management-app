@@ -15,6 +15,16 @@ const TaskItem = ({ task }) => {
   const assignee = teamMembers.find((m) => m.id === task.assigneeId)
   const assigneeName = assignee ? assignee.name : 'Unknown'
 
+  const getInitials = (name) => {
+    if (!name) return 'U'
+    return name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
+  }
+
   const handleStatusChange = async (newStatus) => {
     const previousStatus = task.status
     await updateTaskStatus(task.id, newStatus, previousStatus)
@@ -119,7 +129,18 @@ const TaskItem = ({ task }) => {
             <FaUser style={{ marginRight: '6px', fontSize: '12px' }} />
             Assigned To:
           </span>
-          <span className="task-value">{assigneeName}</span>
+          <span className="task-value">
+            <div className="task-assignee">
+              {assignee?.avatar ? (
+                <img src={assignee.avatar} alt={assigneeName} className="task-assignee-avatar" />
+              ) : (
+                <div className="task-assignee-avatar task-assignee-avatar-placeholder">
+                  {getInitials(assigneeName)}
+                </div>
+              )}
+              <span className="task-assignee-name">{assigneeName}</span>
+            </div>
+          </span>
         </div>
       </div>
     </div>

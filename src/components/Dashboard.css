@@ -52,25 +52,199 @@
   overflow: hidden;
 }
 
-.dashboard-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(135deg, #0072ff 0%, #0099ff 50%, #00bfff 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .dashboard-section:hover {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Welcome Card */
+.welcome-card {
+  background: linear-gradient(135deg, #0072ff 0%, #0099ff 50%, #00bfff 100%);
+  color: #ffffff;
+  border: none;
+}
+
+.welcome-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.welcome-text h2 {
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome-icon {
+  font-size: 28px;
+}
+
+.welcome-text p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.urgent-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.urgent-badge svg {
+  font-size: 16px;
+}
+
+/* Section Title */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222831;
+}
+
+.section-icon {
+  color: #0072ff;
+  font-size: 20px;
+}
+
+/* Recent Tasks */
+.recent-tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.recent-task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 18px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  width: 100%;
+}
+
+.recent-task-item:hover {
+  background: #f8f9fa;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
-.dashboard-section:hover::before {
-  opacity: 1;
+.recent-task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.recent-task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.recent-task-title {
+  font-weight: 700;
+  color: #222831;
+  font-size: 15px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.recent-task-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.recent-task-date {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.recent-task-status {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  width: fit-content;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+
+.recent-task-status.status-not_started {
+  background: #fee2e2;
+  color: #dc3545;
+}
+
+.recent-task-status.status-in_progress {
+  background: #fef3c7;
+  color: #ffc107;
+}
+
+.recent-task-status.status-problematic {
+  background: #fef3c7;
+  color: #ffc107;
+}
+
+.recent-task-status.status-completed {
+  background: #d1fae5;
+  color: #198754;
+}
+
+.recent-task-priority {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.recent-task-priority.high {
+  background: linear-gradient(135deg, #dc3545 0%, #e63946 100%);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.3);
 }
 
 /* Tablet */
@@ -97,11 +271,7 @@
 /* Mobile */
 @media (max-width: 768px) {
   .dashboard-header {
-    padding: 18px 20px;
-  }
-
-  .dashboard-header h1 {
-    font-size: 22px;
+    display: none;
   }
 
   .dashboard-main {
@@ -159,6 +329,43 @@
   .dashboard-section {
     padding: 14px;
     border-radius: 8px;
+  }
+
+  .welcome-text h2 {
+    font-size: 20px;
+  }
+
+  .welcome-text p {
+    font-size: 14px;
+  }
+
+  .urgent-badge {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .recent-task-item {
+    padding: 10px 12px;
+  }
+}
+
+/* Responsive for Welcome Card */
+@media (max-width: 768px) {
+  .welcome-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .welcome-text h2 {
+    font-size: 22px;
+  }
+
+  .urgent-badge {
+    align-self: flex-start;
   }
 }
 

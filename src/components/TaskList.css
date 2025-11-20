@@ -46,6 +46,33 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-text {
+  color: inherit;
+}
+
+.status-count {
+  background: inherit;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon {
+  font-size: 16px;
+  color: inherit;
 }
 
 .status-header.not-started {
@@ -53,9 +80,17 @@
   color: #dc3545;
 }
 
+.status-header.not-started .status-count {
+  background: #dc3545;
+}
+
 .status-header.in-progress {
   background: transparent;
   color: #ffc107;
+}
+
+.status-header.in-progress .status-count {
+  background: #ffc107;
 }
 
 .status-header.problematic {
@@ -63,9 +98,17 @@
   color: #ffc107;
 }
 
+.status-header.problematic .status-count {
+  background: #ffc107;
+}
+
 .status-header.completed {
   background: transparent;
   color: #198754;
+}
+
+.status-header.completed .status-count {
+  background: #198754;
 }
 
 .tasks-column {

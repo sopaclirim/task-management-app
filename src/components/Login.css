@@ -158,9 +158,9 @@
   }
 
   .login-card {
-    max-width: 100%;
+    max-width: 80%;
     padding: 24px;
-    border-radius: 12px;
+    border-radius: 12px 0;
   }
 
   .login-card h1 {

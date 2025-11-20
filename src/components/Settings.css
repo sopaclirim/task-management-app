@@ -218,11 +218,7 @@ input:checked + .slider:before {
 /* Mobile */
 @media (max-width: 768px) {
   .settings-header {
-    padding: 18px 20px;
-  }
-
-  .settings-header h1 {
-    font-size: 22px;
+    display: none;
   }
 
   .settings-content {

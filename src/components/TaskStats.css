@@ -57,11 +57,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
 }
 
 .stat-card .stat-icon {
-  color: #ffffff;
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.stat-card.total .stat-icon,
+.stat-card.not-started .stat-icon,
+.stat-card.in-progress .stat-icon,
+.stat-card.completed .stat-icon,
+.stat-card.rate .stat-icon {
+  color: #ffffff !important;
   opacity: 1;
 }
 
@@ -92,10 +103,15 @@
 
 .stat-label {
   font-size: 13px;
-  font-weight: 600;
-  color: #393E46;
+  font-weight: 500;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.task-stats .stat-label {
+  font-weight: 500;
+  color: #ffffff;
 }
 
 /* Tablet */

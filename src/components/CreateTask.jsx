@@ -44,7 +44,7 @@ const CreateTask = () => {
       <div className="create-task-toggle">
         <button onClick={() => setShowForm(true)} className="toggle-button">
           <FaPlus style={{ marginRight: '8px' }} />
-          Create New Task
+          Create Task
         </button>
       </div>
     )

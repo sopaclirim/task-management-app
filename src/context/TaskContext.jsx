@@ -55,6 +55,14 @@ export const TaskProvider = ({ children }) => {
     localStorage.removeItem('currentUser')
   }
 
+  const updateUserAvatar = (avatarUrl) => {
+    if (currentUser) {
+      const updatedUser = { ...currentUser, avatar: avatarUrl }
+      setCurrentUser(updatedUser)
+      localStorage.setItem('currentUser', JSON.stringify(updatedUser))
+    }
+  }
+
   const createTask = async (taskData) => {
     const newTask = {
       id: Date.now(),
@@ -164,19 +172,72 @@ export const TaskProvider = ({ children }) => {
     return tasks.filter((task) => task.status === status)
   }
 
+  const addTaskComment = (taskId, comment, userId, userName) => {
+    const newComment = {
+      id: Date.now(),
+      text: comment,
+      userId,
+      userName,
+      createdAt: new Date().toISOString(),
+    }
+    
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === taskId
+          ? { ...t, comments: [...(t.comments || []), newComment] }
+          : t
+      )
+    )
+    
+    return newComment
+  }
+
+  const updateTaskComment = (taskId, commentId, newText) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === taskId
+          ? {
+              ...t,
+              comments: (t.comments || []).map((c) =>
+                c.id === commentId ? { ...c, text: newText, updatedAt: new Date().toISOString() } : c
+              ),
+            }
+          : t
+      )
+    )
+  }
+
+  const deleteTaskComment = (taskId, commentId) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === taskId
+          ? {
+              ...t,
+              comments: (t.comments || []).filter((c) => c.id !== commentId),
+            }
+          : t
+      )
+    )
+  }
+
   const value = {
     currentUser,
     tasks,
     teamMembers,
     login,
     logout,
+    updateUserAvatar,
     createTask,
     updateTaskStatus,
     updateTaskAssignee,
     updateTask,
+    addTaskComment,
     deleteTask,
     getTasksByAssignee,
     getTasksByStatus,
+    addTaskComment,
+    updateTaskComment,
+    deleteTaskComment,
   }
 
   return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>

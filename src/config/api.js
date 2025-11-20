@@ -19,4 +19,3 @@ export const API_ENDPOINTS = {
   // Email endpoints
   SEND_EMAIL: '/email/send',
 }
-

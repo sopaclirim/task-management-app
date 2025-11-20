@@ -13,7 +13,10 @@ import {
   FaClock,
   FaPauseCircle,
   FaEdit,
-  FaSave
+  FaSave,
+  FaComment,
+  FaPaperPlane,
+  FaTimes
 } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import './TaskDetails.css'
@@ -21,7 +24,7 @@ import './TaskDetails.css'
 const TaskDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { tasks, teamMembers, currentUser, updateTaskStatus, updateTaskAssignee, updateTask, deleteTask } = useTasks()
+  const { tasks, teamMembers, currentUser, updateTaskStatus, updateTaskAssignee, updateTask, deleteTask, addTaskComment, updateTaskComment, deleteTaskComment } = useTasks()
   const task = tasks.find((t) => t.id === parseInt(id))
   const [showReassign, setShowReassign] = useState(false)
   const [newAssigneeId, setNewAssigneeId] = useState('')
@@ -32,6 +35,9 @@ const TaskDetails = () => {
   const [editedDueDate, setEditedDueDate] = useState('')
   const [showProblematicModal, setShowProblematicModal] = useState(false)
   const [problematicComment, setProblematicComment] = useState('')
+  const [newComment, setNewComment] = useState('')
+  const [editingCommentId, setEditingCommentId] = useState(null)
+  const [editingCommentText, setEditingCommentText] = useState('')
 
   const isTeamLeader = currentUser?.role === 'team_leader'
   const isAssignedToMe = currentUser?.id === task?.assigneeId
@@ -45,6 +51,30 @@ const TaskDetails = () => {
       setEditedDueDate(task.dueDate ? task.dueDate.split('T')[0] : '')
     }
   }, [task])
+
+  const handleAddComment = (e) => {
+    e.preventDefault()
+    if (!newComment.trim()) return
+
+    addTaskComment(
+      task.id,
+      newComment.trim(),
+      currentUser.id,
+      currentUser.name
+    )
+    setNewComment('')
+  }
+
+  const formatDateTime = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+  }
 
   if (!task) {
     return (
@@ -395,6 +425,101 @@ const TaskDetails = () => {
                 </div>
               </div>
             )}
+
+            {/* Comments Section */}
+            <div className="comments-section">
+              <label>
+                <FaComment style={{ marginRight: '6px' }} />
+                Comments ({task.comments?.length || 0})
+              </label>
+              
+              <div className="comments-list">
+                {task.comments && task.comments.length > 0 ? (
+                  task.comments.map((comment) => {
+                    const isMyComment = comment.userId === currentUser?.id
+                    const isEditing = editingCommentId === comment.id
+
+                    return (
+                      <div key={comment.id} className="comment-item">
+                        <div className="comment-header">
+                          <div className="comment-author">
+                            <div className="comment-avatar">
+                              {comment.userName?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || 'U'}
+                            </div>
+                            <div className="comment-author-info">
+                              <span className="comment-author-name">{comment.userName || 'Unknown'}</span>
+                              <span className="comment-date">{formatDateTime(comment.createdAt)}</span>
+                            </div>
+                          </div>
+                          {isMyComment && !isEditing && (
+                            <div className="comment-actions">
+                              <button
+                                onClick={() => handleEditComment(comment.id, comment.text)}
+                                className="comment-edit-button"
+                                title="Edit comment"
+                              >
+                                <FaEdit />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteComment(comment.id)}
+                                className="comment-delete-button"
+                                title="Delete comment"
+                              >
+                                <FaTrash />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                        {isEditing ? (
+                          <div className="comment-edit-form">
+                            <textarea
+                              value={editingCommentText}
+                              onChange={(e) => setEditingCommentText(e.target.value)}
+                              className="comment-edit-input"
+                              rows="3"
+                            />
+                            <div className="comment-edit-actions">
+                              <button
+                                onClick={() => handleSaveComment(comment.id)}
+                                className="comment-save-button"
+                              >
+                                <FaSave style={{ marginRight: '6px' }} />
+                                Save
+                              </button>
+                              <button
+                                onClick={handleCancelEdit}
+                                className="comment-cancel-button"
+                              >
+                                <FaTimes style={{ marginRight: '6px' }} />
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="comment-text">{comment.text}</div>
+                        )}
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div className="no-comments">No comments yet. Be the first to comment!</div>
+                )}
+              </div>
+
+              <form onSubmit={handleAddComment} className="comment-form">
+                <textarea
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  placeholder="Add a comment..."
+                  className="comment-input"
+                  rows="3"
+                />
+                <button type="submit" className="comment-submit-button">
+                  <FaPaperPlane style={{ marginRight: '6px' }} />
+                  Post Comment
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

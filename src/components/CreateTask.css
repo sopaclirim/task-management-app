@@ -6,19 +6,25 @@
   background: linear-gradient(135deg, #0072ff 0%, #0099ff 50%, #00bfff 100%);
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 24px;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
   box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
+}
+
+.create-task-toggle {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .toggle-button:hover {
   background: linear-gradient(135deg, #0056cc 0%, #0072ff 50%, #0099ff 100%);
-  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
 }
 
@@ -103,7 +109,6 @@
 
 .submit-button:hover {
   background: linear-gradient(135deg, #0056cc 0%, #0072ff 50%, #0099ff 100%);
-  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
 }
 

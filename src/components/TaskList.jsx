@@ -1,5 +1,6 @@
 import { useTasks } from '../context/TaskContext'
 import TaskItem from './TaskItem'
+import { FaPauseCircle, FaClock, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa'
 import './TaskList.css'
 
 const TaskList = () => {
@@ -37,7 +38,9 @@ const TaskList = () => {
       <div className="tasks-container">
         <div className="status-column">
           <h3 className="status-header not-started">
-            Not Started ({tasksByStatus.not_started.length})
+            <FaPauseCircle className="status-icon" />
+            <span className="status-text">Not Started</span>
+            <span className="status-count">{tasksByStatus.not_started.length}</span>
           </h3>
           <div className="tasks-column">
             {tasksByStatus.not_started.map((task) => (
@@ -48,7 +51,9 @@ const TaskList = () => {
 
         <div className="status-column">
           <h3 className="status-header in-progress">
-            In Progress ({tasksByStatus.in_progress.length})
+            <FaClock className="status-icon" />
+            <span className="status-text">In Progress</span>
+            <span className="status-count">{tasksByStatus.in_progress.length}</span>
           </h3>
           <div className="tasks-column">
             {tasksByStatus.in_progress.map((task) => (
@@ -59,7 +64,9 @@ const TaskList = () => {
 
         <div className="status-column">
           <h3 className="status-header problematic">
-            Problematic ({tasksByStatus.problematic.length})
+            <FaExclamationTriangle className="status-icon" />
+            <span className="status-text">Problematic</span>
+            <span className="status-count">{tasksByStatus.problematic.length}</span>
           </h3>
           <div className="tasks-column">
             {tasksByStatus.problematic.map((task) => (
@@ -70,7 +77,9 @@ const TaskList = () => {
 
         <div className="status-column">
           <h3 className="status-header completed">
-            Completed ({tasksByStatus.completed.length})
+            <FaCheckCircle className="status-icon" />
+            <span className="status-text">Completed</span>
+            <span className="status-count">{tasksByStatus.completed.length}</span>
           </h3>
           <div className="tasks-column">
             {tasksByStatus.completed.map((task) => (

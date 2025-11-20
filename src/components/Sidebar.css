@@ -1,27 +1,3 @@
-.mobile-menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1001;
-  background: linear-gradient(135deg, #0072ff 0%, #0099ff 50%, #00bfff 100%);
-  color: #ffffff;
-  border: none;
-  width: 45px;
-  height: 45px;
-  border-radius: 8px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.mobile-menu-toggle:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
-}
 
 .sidebar-overlay {
   display: none;
@@ -30,9 +6,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .sidebar {
@@ -46,7 +32,9 @@
   top: 0;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sidebar-header {
@@ -61,13 +49,66 @@
   color: #ffffff;
 }
 
-.logo-icon {
-  font-size: 24px;
+.logo-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-icon-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.logo-circle-bg-sidebar {
+  fill: rgba(255, 255, 255, 0.2);
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5;
+}
+
+.logo-check-sidebar {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: checkDrawSidebar 1s ease-out 0.3s forwards;
+}
+
+.logo-clipboard-sidebar {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: clipboardDrawSidebar 0.8s ease-out forwards;
+}
+
+.logo-clip-sidebar {
+  opacity: 0;
+  animation: clipAppearSidebar 0.4s ease-out 0.6s forwards;
+}
+
+@keyframes checkDrawSidebar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes clipboardDrawSidebar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes clipAppearSidebar {
+  to {
+    opacity: 1;
+  }
 }
 
 .logo-text {
   font-size: 20px;
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .sidebar-user {
@@ -103,7 +144,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #0F0E0E 0%, #1a1a1a 50%, #2d2d2d 100%);
   color: #ffffff;
   font-size: 28px;
   font-weight: 700;
@@ -197,8 +238,8 @@
 
 .logout-button {
   width: 100%;
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
   padding: 12px 20px;
   border-radius: 8px;
@@ -210,13 +251,13 @@
   justify-content: center;
   gap: 10px;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .logout-button:hover {
-  background: rgba(239, 68, 68, 0.3);
-  border-color: rgba(239, 68, 68, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .logout-icon {
@@ -260,71 +301,8 @@
   }
 }
 
-/* Mobile */
+/* Tablet */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 70px;
-  }
-
-  .sidebar-header {
-    padding: 15px 10px;
-  }
-
-  .sidebar-logo .logo-text,
-  .user-info,
-  .nav-item span,
-  .logout-button span {
-    display: none;
-  }
-
-  .sidebar-logo {
-    justify-content: center;
-  }
-
-  .sidebar-user {
-    padding: 15px 10px;
-  }
-
-  .user-avatar {
-    width: 50px;
-    height: 50px;
-  }
-
-  .avatar-placeholder {
-    font-size: 20px;
-  }
-
-  .nav-item {
-    justify-content: center;
-    margin: 0 8px;
-    padding: 12px;
-  }
-
-  .nav-icon {
-    font-size: 20px;
-    width: auto;
-  }
-
-  .sidebar-nav {
-    padding: 15px 0;
-    gap: 6px;
-  }
-
-  .sidebar-footer {
-    padding: 15px 10px;
-  }
-
-  .logout-button {
-    padding: 12px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 480px) {
-  .mobile-menu-toggle {
-    display: flex;
-  }
-
   .sidebar-overlay {
     display: block;
   }
@@ -336,25 +314,90 @@
 
   .sidebar.mobile-open {
     transform: translateX(0);
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   }
 
   .sidebar-header {
-    padding: 15px;
+    padding: 18px 15px;
   }
 
   .sidebar-user {
-    padding: 15px;
+    padding: 18px 15px;
+  }
+
+  .nav-item {
+    justify-content: flex-start;
+    margin: 0 12px;
   }
 
   .nav-item span,
   .logout-button span {
     display: block;
   }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 260px;
+    max-width: 85vw;
+  }
+
+  .sidebar-header {
+    padding: 15px 12px;
+  }
+
+  .sidebar-logo {
+    gap: 8px;
+  }
+
+  .logo-icon {
+    font-size: 20px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .sidebar-user {
+    padding: 15px 12px;
+  }
+
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .avatar-placeholder {
+    font-size: 26px;
+  }
+
+  .user-info .user-name {
+    font-size: 16px;
+  }
+
+  .user-info .user-email {
+    font-size: 12px;
+  }
 
   .nav-item {
-    justify-content: flex-start;
-    margin: 0 12px;
+    padding: 11px 16px;
+    font-size: 14px;
+    margin: 0 10px;
+  }
+
+  .nav-icon {
+    font-size: 16px;
+    width: 18px;
+  }
+
+  .sidebar-footer {
+    padding: 15px 12px;
+  }
+
+  .logout-button {
+    padding: 11px 16px;
+    font-size: 14px;
   }
 }
 
@@ -366,11 +409,15 @@
   }
 
   .sidebar-header {
-    padding: 12px;
+    padding: 12px 10px;
+  }
+
+  .logo-text {
+    font-size: 16px;
   }
 
   .sidebar-user {
-    padding: 12px;
+    padding: 12px 10px;
   }
 
   .user-avatar {
@@ -379,15 +426,40 @@
   }
 
   .avatar-placeholder {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .user-info .user-name {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .user-info .user-email {
     font-size: 11px;
+  }
+
+  .user-role-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  .nav-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    margin: 0 8px;
+  }
+
+  .nav-icon {
+    font-size: 15px;
+    width: 16px;
+  }
+
+  .sidebar-footer {
+    padding: 12px 10px;
+  }
+
+  .logout-button {
+    padding: 10px 14px;
+    font-size: 13px;
   }
 }
 

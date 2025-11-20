@@ -1,14 +1,12 @@
-import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useTasks } from '../context/TaskContext'
-import { FaSignOutAlt, FaUser, FaCog, FaTasks, FaBars, FaTimes } from 'react-icons/fa'
+import { FaSignOutAlt, FaUser, FaCog, FaTasks } from 'react-icons/fa'
 import './Sidebar.css'
 
-const Sidebar = () => {
+const Sidebar = ({ isMobileMenuOpen, onCloseMenu }) => {
   const { currentUser, logout } = useTasks();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout()
@@ -28,28 +26,56 @@ const Sidebar = () => {
       .slice(0, 2)
   }
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
-
   const handleNavClick = (path) => {
     navigate(path)
-    setIsMobileMenuOpen(false)
+    if (onCloseMenu) {
+      onCloseMenu()
+    }
   }
 
   return (
     <>
-      <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
-        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-      </button>
       {isMobileMenuOpen && (
-        <div className="sidebar-overlay" onClick={toggleMobileMenu}></div>
+        <div className="sidebar-overlay" onClick={onCloseMenu}></div>
       )}
       <aside className={`sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <FaTasks className="logo-icon" />
-            <span className="logo-text">Scan Task</span>
+            <div className="logo-icon-wrapper">
+              <svg className="logo-icon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle className="logo-circle-bg-sidebar" cx="50" cy="50" r="40" />
+                <path 
+                  className="logo-check-sidebar" 
+                  d="M30 50 L42 62 L70 34" 
+                  stroke="white" 
+                  strokeWidth="5" 
+                  fill="none" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+                <rect 
+                  className="logo-clipboard-sidebar" 
+                  x="25" 
+                  y="20" 
+                  width="50" 
+                  height="55" 
+                  rx="3" 
+                  fill="none" 
+                  stroke="white" 
+                  strokeWidth="2.5"
+                />
+                <rect 
+                  className="logo-clip-sidebar" 
+                  x="40" 
+                  y="15" 
+                  width="20" 
+                  height="7" 
+                  rx="1.5" 
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <span className="logo-text">ScanTask</span>
           </div>
         </div>
 
