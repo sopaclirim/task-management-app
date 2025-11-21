@@ -4,6 +4,9 @@
   background: #f5f7fa;
   position: relative;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-content-wrapper {
@@ -14,6 +17,9 @@
   flex-direction: column;
   transition: margin-left 0.3s ease;
   width: calc(100% - 280px);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .mobile-header {
@@ -104,6 +110,13 @@
   .dashboard-content-wrapper {
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
+  }
+
+  .dashboard-layout {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
   }
 }
 
